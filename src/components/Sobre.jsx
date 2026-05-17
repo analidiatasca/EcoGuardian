@@ -1,68 +1,40 @@
-import fundoo1 from "../assets/1.png"
 import styled from "styled-components";
-import fundoo2 from "../assets/2.png"
-import fundoo3 from "../assets/3.png"
-import fundoo4 from "../assets/4.png"
-import fundoo5 from "../assets/5.png"
 
-const Fundo1 = styled.header`
+import fundoDesktop1 from "../assets/1.png";
+import fundoDesktop2 from "../assets/2.png";
+import fundoDesktop3 from "../assets/3.png";
+import fundoDesktop4 from "../assets/4.png";
+import fundoDesktop5 from "../assets/5.png";
+
+import fundoMobile1 from "../assets/1cel.png";
+import fundoMobile2 from "../assets/2cel.png";
+import fundoMobile3 from "../assets/3cel.png";
+import fundoMobile4 from "../assets/4cel.png";
+import fundoMobile5 from "../assets/5cel.png";
+
+const Fundo = styled.header`
   height: 100vh;
   width: 100%;
   position: relative;
   overflow: hidden;
 
-  background-image: url(${props => props.imagem});
+  background-image: url(${props => props.desktop});
   background-size: cover;
   background-position: center;
-`;
-const Fundo2 = styled.header`
-  height: 100vh;
-  width: 100%;
-  position: relative;
-  overflow: hidden;
 
-  background-image: url(${props => props.imagem});
-  background-size: cover;
-  background-position: center;
+  @media (max-width: 768px) {
+    background-image: url(${props => props.mobile});
+  }
 `;
-const Fundo3 = styled.header`
-  margin-top: auto;
-height: 100vh;
-  width: 100%;
-  position: relative;
-  overflow: hidden;
 
-  background-image: url(${props => props.imagem});
-  background-size: cover;
-  background-position: center;
-`;
-const Fundo4 = styled.header`
-  height: 100vh;
-  width: 100%;
-  position: relative;
-  overflow: hidden;
-
-  background-image: url(${props => props.imagem});
-  background-size: cover;
-  background-position: center;
-`;
-const Fundo5 = styled.header`
-  height: 100vh;
-  width: 100%;
-  position: relative;
-  overflow: hidden;
-
-  background-image: url(${props => props.imagem});
-  background-size: cover;
-  background-position: center;
-`;
 export function Sobre() {
-  return (<>
-    <Fundo1 imagem={fundoo1}></Fundo1>
-    <Fundo2 imagem={fundoo2}></Fundo2>
-    <Fundo3 imagem={fundoo3}></Fundo3>
-    <Fundo4 imagem={fundoo4}></Fundo4>
-    <Fundo5 imagem={fundoo5}></Fundo5>
+  return (
+    <>
+      <Fundo desktop={fundoDesktop1} mobile={fundoMobile1} />
+      <Fundo desktop={fundoDesktop2} mobile={fundoMobile2} />
+      <Fundo desktop={fundoDesktop3} mobile={fundoMobile3} />
+      <Fundo desktop={fundoDesktop4} mobile={fundoMobile4} />
+      <Fundo desktop={fundoDesktop5} mobile={fundoMobile5} />
     </>
   );
 }

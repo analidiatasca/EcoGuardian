@@ -1,19 +1,27 @@
+import { useState, useEffect } from "react";
 import styled from "styled-components";
+
 import playBtn from "../assets/play.png.png";
 import learnBtn from "../assets/learn.png.png";
 
+import imagemDesktop from "../assets/fundo.png";
+import imagemMobile from "../assets/fundocel.png";
+
+/* CONTAINER PRINCIPAL */
 const HeroContainer = styled.section`
-  height: 100vh;
+  height: 100dvh;
   width: 100%;
   position: relative;
   overflow: hidden;
 `;
 
+/* BACKGROUND */
 const Background = styled.img`
   position: absolute;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
 
   image-rendering: pixelated;
 
@@ -29,24 +37,19 @@ const Background = styled.img`
   }
 `;
 
+/* ESCURECIMENTO */
 const Overlay = styled.div`
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.6));
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.2),
+    rgba(0, 0, 0, 0.6)
+  );
 `;
 
-const Botoesp = styled.div`
-  position: absolute;
-  top: 58%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-`;
-
-const Botoes = styled.div`
+/* BOTÕES */
+const ButtonsContainer = styled.div`
   position: absolute;
   top: 65%;
   left: 50%;
@@ -54,12 +57,19 @@ const Botoes = styled.div`
 
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 20px;
+
+  width: 100%;
 `;
 
-const BotaoImgp = styled.img`
+/* BOTÃO PLAY */
+const PlayButton = styled.img`
   width: 300px;
+  max-width: 80%;
+  margin: -100px;
   cursor: pointer;
+
   image-rendering: pixelated;
   transition: transform 0.1s;
 
@@ -70,11 +80,19 @@ const BotaoImgp = styled.img`
   &:active {
     transform: scale(0.95);
   }
+
+  @media (max-width: 768px) {
+    width: 220px;
+  }
 `;
 
-const BotaoImg = styled.img`
+/* BOTÃO LEARN */
+const LearnButton = styled.img`
   width: 200px;
+  max-width: 70%;
+  margin: 60px;
   cursor: pointer;
+
   image-rendering: pixelated;
   transition: transform 0.1s;
 
@@ -85,25 +103,53 @@ const BotaoImg = styled.img`
   &:active {
     transform: scale(0.95);
   }
+
+  @media (max-width: 768px) {
+    width: 160px;
+  }
 `;
 
-export function Hero({ imagem, scrollToSobre }) {
+export function Hero({ scrollToSobre }) {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () =>
+      window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <HeroContainer>
-      <Background src={imagem} />
+      <Background
+        src={isMobile ? imagemMobile : imagemDesktop}
+        alt="Background"
+      />
+
       <Overlay />
 
-      <Botoesp>
-        <BotaoImgp src={playBtn} alt="Play"  onClick={() => window.open("https://www.construct.net/en/free-online-games/ecoguardian-86179/play")}/>
-        
-      </Botoesp>
-      <Botoes>
-        <BotaoImg
-  src={learnBtn}
-  alt="Learn More"
-  onClick={scrollToSobre}
-/>
-      </Botoes>
+      <ButtonsContainer>
+        <PlayButton
+          src={playBtn}
+          alt="Play"
+          onClick={() =>
+            window.open(
+              "https://www.construct.net/en/free-online-games/ecoguardian-86179/play"
+            )
+          }
+        />
+
+        <LearnButton
+          src={learnBtn}
+          alt="Learn More"
+          onClick={scrollToSobre}
+        />
+      </ButtonsContainer>
     </HeroContainer>
   );
 }
